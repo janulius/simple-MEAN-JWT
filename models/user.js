@@ -8,19 +8,22 @@ var userSchema = mongoose.Schema({
 });
 
 userSchema.pre('save', true, function(next, done) {
-
-  var self = this;
-  mongoose.models["User"].findOne({email : self.email},function(err, results) {
-    if (err) {
-      done(err);
-    } else if (results) { //there was a result found, so the email address exists
-      self.invalidate("email","Email already exists");
-      done(new Error("Email already exists"));
-    } else {
-      done();
-    }
-  });
-  next();
+  if (!this.isModified('password')) {
+    var self = this;
+    mongoose.models["User"].findOne({email : self.email},function(err, results) {
+      if (err) {
+        done(err);
+      } else if (results) { //there was a result found, so the email address exists
+        self.invalidate("email","Email already exists");
+        done(new Error("Email already exists"));
+      } else {
+        done();
+      }
+    });
+  } else {
+    done();
+    next();
+  }
 });
 
 // create the model for users and expose it to our app

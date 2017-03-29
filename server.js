@@ -89,10 +89,11 @@ app.route('/auth/profile')
     User.findById(req.user, function(err, user) {
       if(!user)return res.status(403).send({ message: 'You are not registered as user' });
       if(user){
-        if("phone" in req.body) user.phone = req.body.phone;
+        if("name" in req.body) user.name = req.body.name;
+        if("password" in req.body) user.password = CryptoJS.AES.encrypt(req.body.password, config.secret);
         user.save(function(err, user) {
           if (err) res.status(500).send({ message: err.message });
-          else res.send({ result: user});
+          else res.send(user);
         });
       }
     });
@@ -107,7 +108,6 @@ app.route('/api/posts')
   })
   .post(ensureAuthenticated, function(req, res) {
     Post.findOne({ user_id: req.user }, function(err, post) {
-      console.log(post);
       if (!post) {
         var post = new Post({
           user_id: req.user,
@@ -133,14 +133,13 @@ app.route('/api/posts')
 
     });
   })
-  .delete(ensureAuthenticated, function(req, res) {
-    User.findOneAndRemove({ _id: req.user }, function(err) {
-      if (err) return res.status(403).send({ message: 'You are not registered as user' });
-      res.send({ message: 'Post deleted!'});
-    });
-  })
 ;
 
+app.delete('/api/posts/:id', ensureAuthenticated, function (req, res) {
+  Post.update({ user_id: req.user }, { $pull: { list: { _id: req.params.id } } }, function (err, post) {
+    res.send(post);
+  });
+});
 
 function createJWT(user) {
   var payload = {

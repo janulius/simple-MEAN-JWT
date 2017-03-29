@@ -20,7 +20,12 @@
         </form>
         <ul class="posts">
             <li ng-repeat="(k, v) in vm.posts | orderBy:'-'">
-                <div>{{ v.text }}</div><div class="meta">a few seconds ago | <a href="#">delete</a></div>
+                <div>
+                    {{ v.text }}
+                </div>
+                <div class="meta">
+                    {{ v.ago }} | <a href="javascript:;" data-ng-click="vm.delete(v._id)">delete</a>
+                </div>
             </li>
         </ul>
     </div>

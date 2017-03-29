@@ -1,14 +1,24 @@
 <div class="edit-container">
     <p class="bold">Edit your data:</p>
-    <form class="edit-form">
+    <form class="edit-form" name="frm" ng-submit="vm.submitForm(frm.$valid)" novalidate>
         <div class="form-group form-control-feedback edit-form-success"></div>
         <div class="form-group">
-            <input class="form-control fullName" type="text" maxlength="100" placeholder="Full name">
-            <div class="form-control-feedback form-control-error fullName-error"></div>
+            <input class="form-control fullName" type="text" placeholder="Full name"
+                   name="name"
+                   data-ng-model="vm.params.name" data-ng-maxlength="100" required>
+            <div class="form-control-error" data-ng-show="frm.$submitted || frm.name.$dirty">
+                <div data-ng-show="frm.name.$error.required">Full name is required</div>
+                <div data-ng-show="frm.name.$error.maxlength">Full name max 100 character</div>
+            </div>
         </div>
         <div class="form-group">
-            <input class="form-control password" type="password" maxlength="100" placeholder="New password">
-            <div class="form-control-feedback form-control-error password-error"></div>
+            <input class="form-control password" type="password" placeholder="New password"
+                   name="password"
+                   data-ng-model="vm.params.password" data-ng-maxlength="100" required>
+            <div class="form-control-error" data-ng-show="frm.$submitted || frm.password.$dirty">
+                <div data-ng-show="frm.password.$error.required">Password is required</div>
+                <div data-ng-show="frm.password.$error.maxlength">Password max 100 character</div>
+            </div>
         </div>
         <button class="back-button" ui-sref="app">Back</button>
         <button type="submit">Edit</button>

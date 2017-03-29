@@ -28,8 +28,21 @@
           cache: false,
           templateUrl: 'views/edit.html',
           controller: 'editCtrl',
-          controllerAs : 'vm'
+          controllerAs : 'vm',
+          resolve: {
+            loginRequired: loginRequired
+          }
         })
+
+      function loginRequired($q, $location, auth) {
+        var deferred = $q.defer();
+        if (auth.isAuthed()) {
+          deferred.resolve();
+        } else {
+          $location.path('/signup');
+        }
+        return deferred.promise;
+      }
 
     }]);
 })();

@@ -20,13 +20,7 @@
           console.log('Error: ' + data.message);
         });
 
-      $http.get('/api/posts')
-        .success(function(data) {
-          vm.posts = data.list;
-        })
-        .error(function(data) {
-          console.log('Error: ' + data);
-        });
+      getPost();
     }
 
     // function to submit the form after all validation has occurred
@@ -49,7 +43,9 @@
           .success(function(data, status) {
             if (status === 200) {
               vm.textPost = '';
-              vm.posts = data.list;
+              if (data.list) {
+                vm.posts = ago(data.list);
+              }
             }
           })
           .error(function(data) {
@@ -58,9 +54,40 @@
       }
     };
 
+    vm.delete = function (id) {
+      console.log(id);
+      $http.delete('/api/posts/' + id)
+        .success(function(data, status) {
+          if (status === 200 && data.nModified == 1) getPost();
+        })
+        .error(function(data) {
+          console.log('Error: ' + data);
+        });
+    };
+
     vm.logout = function () {
       $window.localStorage.removeItem('jwtToken');
     };
+
+    function getPost() {
+      $http.get('/api/posts')
+        .success(function(data) {
+          if (data.list) {
+            vm.posts = ago(data.list);
+          }
+        })
+        .error(function(data) {
+          console.log('Error: ' + data);
+        });
+    }
+
+    function ago(list) {
+      for (var i = 0; i < list.length; i++) {
+        list[i].ago = moment(list[i].created_at).fromNow();
+      }
+      return list;
+    }
+
   }
 
 })(); 

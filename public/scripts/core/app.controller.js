@@ -56,7 +56,7 @@
   }
 
   function AppCtrl($scope) {
-    var vm = this;
+    var self = this;
   }
 
   angular.module('app')
