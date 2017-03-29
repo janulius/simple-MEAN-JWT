@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html data-ng-app="app">
+    <head>
+        <title>Welcome to Micro Journal!</title>
+        <meta name="description" content="A cool thing made with Glitch">
+        <link id="favicon" rel="icon" href="https://glitch.com/edit/favicon-app.ico" type="image/x-icon">
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="css/style.css">
+    </head>
+    <body data-ng-controller="AppCtrl as global">
+        <header><h1>Micro Journal</h1></header>
+
+        <main ui-view></main>
+
+        <footer>Copyright &copy; 2017. Micro Journal.</footer>
+
+        <script src="vendor/angular.min.js"></script>
+        <script src="vendor/angular-ui-router.min.js"></script>
+        <script src="scripts/app.module.js"></script>
+        <script src="scripts/core/config.route.js"></script>
+        <script src="scripts/core/app.controller.js"></script>
+
+        <script src="scripts/controller/home.js"></script>
+        <script src="scripts/controller/signup.js"></script>
+        <script src="scripts/controller/edit.js"></script>
+    </body>
+</html>

@@ -1,0 +1,65 @@
+<div data-ng-if="vm.isAuthed()">
+    <p class="greeting bold">Oh hi, {{ vm.name }}!
+        <a ui-sref="edit">edit</a>
+        <a href="javascript:;" data-ng-click="vm.logout()">logout</a>
+    </p>
+
+    <div class="journal-container">
+        <p class="greeting bold"></p>
+        <p>Tell me about your day:</p>
+        <form class="post-form" name="postForm" ng-submit="vm.submitPostForm(postForm.$valid)" novalidate>
+            <div class="form-group">
+                <input class="form-control text" type="text" name="textPost" placeholder="What's happening?"
+                        data-ng-model="vm.textPost" data-ng-maxlength="140" required>
+                <div class="form-control-error" data-ng-show="postForm.$submitted || postForm.text.$dirty">
+                    <div data-ng-show="postForm.textPost.$error.required">Text is required</div>
+                    <div data-ng-show="postForm.textPost.$error.maxlength">Text max 140 character</div>
+                </div>
+            </div>
+            <button type="submit">Post</button>
+        </form>
+        <ul class="posts">
+            <li ng-repeat="(k, v) in vm.posts | orderBy:'-'">
+                <div>{{ v.text }}</div><div class="meta">a few seconds ago | <a href="#">delete</a></div>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<div data-ng-if="!vm.isAuthed()">
+    <p class="bold">Oh hi,</p>
+    <div class="login-container">
+        <p>Login here. New user? <a ui-sref="signup" class="signup-link">Sign up here :)</a></p>
+        <form class="login-form" name="frm" ng-submit="vm.submitForm(frm.$valid)" novalidate>
+            <div class="form-group form-control-feedback login-form-success"></div>
+            <div class="form-group">
+                <input class="form-control email" type="email" placeholder="Email"
+                       name="email"
+                       data-ng-model="vm.params.email" data-ng-maxlength="100" required>
+                <div class="form-control-error" data-ng-show="frm.$submitted || frm.email.$dirty">
+                    <div data-ng-show="frm.email.$error.required">Email is required</div>
+                    <div data-ng-show="frm.email.$error.maxlength">Email max 100 character</div>
+                    <div data-ng-show="frm.email.$error.email">Not valid email!</div>
+                </div>
+            </div>
+            <div class="form-group">
+                <input class="form-control password" type="password" placeholder="Password"
+                       name="password"
+                       data-ng-model="vm.params.password" data-ng-maxlength="100" required>
+                <div class="form-control-error" data-ng-show="frm.$submitted || frm.password.$dirty">
+                    <div data-ng-show="frm.password.$error.required">Password is required</div>
+                    <div data-ng-show="frm.password.$error.maxlength">Password max 100 character</div>
+                </div>
+            </div>
+
+            <div class="form-group" data-ng-if="vm.error">
+                <div class="form-control-error">{{ vm.error.message }}</div>
+            </div>
+
+            <button type="submit">Login</button>
+        </form>
+    </div>
+</div>
+
+
+

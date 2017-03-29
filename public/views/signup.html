@@ -1,0 +1,40 @@
+<div class="signup-container">
+    <p>Sign up here. Have an account? <a ui-sref="app" class="login-link">Login here :)</a></p>
+    <form class="signup-form" name="frm" ng-submit="vm.submitForm(frm.$valid)" novalidate>
+        <div class="form-group form-control-feedback signup-form-success"></div>
+        <div class="form-group">
+            <input class="form-control fullName" type="text" placeholder="Full name"
+                   name="name"
+                   data-ng-model="vm.params.name" data-ng-maxlength="100" required>
+            <div class="form-control-error" data-ng-show="frm.$submitted || frm.name.$dirty">
+                <div data-ng-show="frm.name.$error.required">Full name is required</div>
+                <div data-ng-show="frm.name.$error.maxlength">Full name max 100 character</div>
+            </div>
+        </div>
+        <div class="form-group">
+            <input class="form-control email" type="email" placeholder="Email"
+                   name="email"
+                   data-ng-model="vm.params.email" data-ng-maxlength="100" required>
+            <div class="form-control-error" data-ng-show="frm.$submitted || frm.email.$dirty">
+                <div data-ng-show="frm.email.$error.required">Email is required</div>
+                <div data-ng-show="frm.email.$error.maxlength">Email max 100 character</div>
+                <div data-ng-show="frm.email.$error.email">Not valid email!</div>
+            </div>
+        </div>
+        <div class="form-group">
+            <input class="form-control password" type="password" placeholder="Password"
+                   name="password"
+                   data-ng-model="vm.params.password" data-ng-maxlength="100" required>
+            <div class="form-control-error" data-ng-show="frm.$submitted || frm.password.$dirty">
+                <div data-ng-show="frm.password.$error.required">Password is required</div>
+                <div data-ng-show="frm.password.$error.maxlength">Password max 100 character</div>
+            </div>
+        </div>
+
+        <div class="form-group" data-ng-if="vm.error">
+            <div class="form-control-error">{{ vm.error.message }}</div>
+        </div>
+
+        <button type="submit">Sign Up</button>
+    </form>
+</div>
