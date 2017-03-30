@@ -173,5 +173,5 @@ function ensureAuthenticated(req, res, next) {
 }
 
 // listen (start app with node server.js) ======================================
-app.listen(4500);
+app.listen(config.port);
 console.log("App listening on port 4500");

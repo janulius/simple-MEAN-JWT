@@ -11,17 +11,19 @@
       return auth.isAuthed ? auth.isAuthed() : false
     };
 
-    if (auth.isAuthed()) {
-      $http.get('/auth/profile')
-        .success(function(data) {
-          vm.name = data.name;
-        })
-        .error(function(data) {
-          console.log('Error: ' + data.message);
-        });
+    (vm.changeState = function () {
+      if (auth.isAuthed()) {
+        $http.get('/auth/profile')
+          .success(function(data) {
+            vm.name = data.name;
+          })
+          .error(function(data) {
+            console.log('Error: ' + data.message);
+          });
 
-      getPost();
-    }
+        getPost();
+      }
+    })();
 
     // function to submit the form after all validation has occurred
     vm.submitForm = function(isValid) {
@@ -29,7 +31,10 @@
       if (isValid) {
         $http.post('/auth/login', vm.params)
           .success(function(data, status) {
-            if (status === 200) vm.name = data.name;
+            if (status === 200) {
+              vm.name = data.name;
+              vm.changeState();
+            }
           })
           .error(function(data) {
             vm.error = data;
@@ -55,7 +60,6 @@
     };
 
     vm.delete = function (id) {
-      console.log(id);
       $http.delete('/api/posts/' + id)
         .success(function(data, status) {
           if (status === 200 && data.nModified == 1) getPost();

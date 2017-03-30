@@ -62,7 +62,6 @@
   angular.module('app')
     .factory('authInterceptor', authInterceptor)
     .service('auth', authService)
-    .constant('API', 'http://192.168.100.8:4500')
     .config(function($httpProvider) {
       $httpProvider.interceptors.push('authInterceptor');
     })

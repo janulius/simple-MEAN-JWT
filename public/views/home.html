@@ -11,7 +11,7 @@
             <div class="form-group">
                 <input class="form-control text" type="text" name="textPost" placeholder="What's happening?"
                         data-ng-model="vm.textPost" data-ng-maxlength="140" required>
-                <div class="form-control-error" data-ng-show="postForm.$submitted || postForm.text.$dirty">
+                <div class="form-control-error" data-ng-show="postForm.$submitted || postForm.textPost.$dirty">
                     <div data-ng-show="postForm.textPost.$error.required">Text is required</div>
                     <div data-ng-show="postForm.textPost.$error.maxlength">Text max 140 character</div>
                 </div>

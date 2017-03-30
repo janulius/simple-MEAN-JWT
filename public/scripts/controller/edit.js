@@ -20,7 +20,7 @@
       if (isValid) {
         $http.put('/auth/profile', vm.params)
           .success(function(data, status) {
-            if (status === 200);
+            if (status === 200) alert('success');
           })
           .error(function(data) {
             vm.error = data;
