@@ -1,6 +1,7 @@
 ## How to run
 1. **npm i** in your terminal.
 2. **config.js** configurable mongoDB, secret for jwt and encryption
+3. node server.js
 
 ## Additional
    - In larger applications, this should be broken down further to separate duties,
