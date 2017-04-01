@@ -9,6 +9,7 @@
    - [xervo.io](https://xervo.io/). This is great for doing testing and creating databases on the fly.
 
 ## HTTP2 (Optional)
+### Development
 ```
 openssl genrsa -des3 -passout pass:x -out server.pass.key 2048
 ```
@@ -56,3 +57,6 @@ spdy
     }
   })
 ```
+
+### Production
+I recommend [Let’s Encrypt](https://letsencrypt.org/), a free, automated and open certificate authority!

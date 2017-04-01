@@ -7,6 +7,9 @@
   function homeCtrl($scope, $http, $state, auth, $window) {
     var vm = this;
     vm.params = {};
+    vm.currentPage = 1;
+    vm.viewby = 10;
+    vm.itemsPerPage = vm.viewby;
     vm.isAuthed = function() {
       return auth.isAuthed ? auth.isAuthed() : false
     };
@@ -50,6 +53,7 @@
               vm.textPost = '';
               if (data.list) {
                 vm.posts = ago(data.list);
+                vm.totalItems = vm.posts.length;
               }
             }
           })
@@ -78,6 +82,7 @@
         .success(function(data) {
           if (data.list) {
             vm.posts = ago(data.list);
+            vm.totalItems = vm.posts.length;
           }
         })
         .error(function(data) {
@@ -91,6 +96,10 @@
       }
       return list;
     }
+
+    vm.pageChanged = function() {
+      console.log('Page changed to: ' + vm.currentPage);
+    };
 
   }
 

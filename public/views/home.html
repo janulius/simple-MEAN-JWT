@@ -19,7 +19,7 @@
             <button type="submit">Post</button>
         </form>
         <ul class="posts">
-            <li ng-repeat="(k, v) in vm.posts | orderBy:'-'">
+            <li ng-repeat="(k, v) in vm.posts.slice(((vm.currentPage-1)*vm.itemsPerPage), ((vm.currentPage)*vm.itemsPerPage))">
                 <div>
                     {{ v.text }}
                 </div>
@@ -27,6 +27,14 @@
                     {{ v.ago }} | <a href="javascript:;" data-ng-click="vm.delete(v._id)">delete</a>
                 </div>
             </li>
+        </ul>
+
+        <ul uib-pagination
+            total-items="vm.totalItems"
+            ng-model="vm.currentPage"
+            ng-change="vm.pageChanged()"
+            items-per-page="vm.itemsPerPage"
+            direction-links="false">
         </ul>
     </div>
 </div>

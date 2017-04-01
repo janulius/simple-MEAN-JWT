@@ -103,6 +103,7 @@ app.route('/auth/profile')
 app.route('/api/posts')
   .get(ensureAuthenticated, function(req, res) {
     Post.findOne({ user_id: req.user }, function(err, post) {
+      if (post) post.list.reverse();
       res.send(post);
     });
   })
@@ -127,6 +128,7 @@ app.route('/api/posts')
         });
         post.save(function(err) {
           if (err) next(err);
+          post.list.reverse();
           return res.send(post);
         })
       }
