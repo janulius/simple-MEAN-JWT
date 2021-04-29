@@ -1,0 +1,12 @@
+version: 2
+updates:
+- package-ecosystem: npm
+  directory: "/"
+  schedule:
+    interval: daily
+    time: "09:00"
+    timezone: Asia/Jakarta
+  open-pull-requests-limit: 10
+  reviewers:
+  - janulius
+  versioning-strategy: increase-if-necessary
